@@ -19,14 +19,29 @@ function reset()
 
 reset
 
+function letter()
+{
+	letterCheck=$((RANDOM%2))
+	if [[ $letterCheck -eq 0 ]]
+	then
+		move="O"
+	else
+		move="X"
+	fi
+	echo $move
+}
+letter
+
 function toss()
 {
 	tossCheck=$((RANDOM%2))
 	if [[ $tossCheck -eq 0 ]]
 	then
 		echo "Player1 wins toss!"
+    		player1=$(letter)
 	else
-		echo "player2 wins toss!"
+		echo "Player2 wins toss!"
+    		player2=$(letter)    
 	fi
 }
 
