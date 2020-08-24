@@ -46,3 +46,18 @@ function toss()
 }
 
 toss
+
+function boardSee()
+{
+	echo -e "----------------"
+	for (( i=1; i<=rows; i++ ))
+	do
+		for (( j=1; j<=columns+1; j++ ))
+		do
+			echo -e "|| ${tictac[$i,$j]} \c"
+		done
+   	echo -e "\n----------------"
+	done
+}
+
+boardSee
