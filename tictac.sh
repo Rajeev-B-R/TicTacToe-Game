@@ -1,4 +1,4 @@
-#!/bin/bash -x  
+#!/bin/bash -x
 echo "***************TicTacToe Program***************"
 
 declare -A tictac
@@ -18,3 +18,16 @@ function reset()
 }
 
 reset
+
+function toss()
+{
+	tossCheck=$((RANDOM%2))
+	if [[ $tossCheck -eq 0 ]]
+	then
+		echo "Player1 wins toss!"
+	else
+		echo "player2 wins toss!"
+	fi
+}
+
+toss
