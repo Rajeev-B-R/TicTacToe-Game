@@ -185,9 +185,9 @@ do
 		read -p "Enter column index: " columnPos
 		game $rowPos $columnPos
 	else
-		read -p "Enter row index: " rowPos
-		read -p "Enter column index: " columnPos
-		game $rowPos $columnPos
+		echo -e "\n Computer turn: \n"
+		nextPlayer="X"
+		computerPlay $currPlayer
     		computerPlay $nextPlayer
     		if [[ $block == 0 ]]
     		then
