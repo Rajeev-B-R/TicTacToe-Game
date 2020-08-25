@@ -13,7 +13,7 @@ function reset()
 	do
 		for (( j=1; j<=$columns; j++ ))
 		do
-			tictac[$i,$j]="*"
+			tictac[$i,$j]="-"
 		done
 	done
 }
@@ -137,6 +137,43 @@ function game()
 	fi
 }
 
+function computerPlay()
+{
+        block=0
+        for (( m=1; m<=$rows; m++ ))
+        do
+                for (( n=1; n<=$columns; n++ ))
+                do
+                        if [[ ${tictac[$m,$n]} == "-" ]]
+                        then
+                                tictac[$m,$n]=$1
+                                winCheck $1
+                                if [[ $win == 0 ]]
+                                then
+                                        tictac[$m,$n]="-"
+                                elif [[ $win == 1 && ${tictac[$m,$n]} == $currPlayer ]]
+                                then
+                                        boardSee
+                                        echo "$currPlayer wins!"
+				        exit
+                                elif [[ $win == 1 ]]
+                                then
+                                        tictac[$m,$n]=$currPlayer
+                                        boardSee
+                                        win=0
+                                        block=1
+                                        count=$((count+1))
+                                        break
+                                fi
+                        fi
+                done
+                if [[ $block == 1 ]]
+                then
+                        break
+                fi
+        done
+}
+
 reset
 toss
 boardSee
@@ -151,5 +188,18 @@ do
 		read -p "Enter row index: " rowPos
 		read -p "Enter column index: " columnPos
 		game $rowPos $columnPos
+    		computerPlay $nextPlayer
+    		if [[ $block == 0 ]]
+    		then
+      			rowPos=$((RANDOM % 3 + 1))
+      			columnPos=$((RANDOM % 3 + 1))
+      			game $rowPos $columnPos
+		else
+      			chngePlayer $currPlayer
+    		fi
 	fi
 done
+if [[ $win == 0 ]]
+then
+        echo "A tie!"
+fi
